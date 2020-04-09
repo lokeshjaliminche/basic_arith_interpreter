@@ -1,8 +1,53 @@
+/*
+ * This is an Interpreter for ARITH
+ * Followed these websites to understand the concepts
+ * and coding 
+ * https://ruslanspivak.com/lsbasi-part7/
+ * http://www.cplusplus.com/forum/general/1116/2/
+ */
+
 #include <iostream>
 #include <iterator>
 #include <map>
 
 using namespace std;
+
+/*
+ * Binary Operations:
+ * ==================
+ * ADD
+ * SUBSTRACT
+ * MULTIPLICATION
+ * DIVISION
+ *
+ * Unary operations:
+ * =================
+ * '-'
+ *
+ * Precedence:
+ * ==========
+ * '(',')'
+ * '*','/'
+ * '+','-'
+ *
+ * Grammer:
+ * =======
+ * Primary:
+ * 	NUMBER
+ * 	- primary
+ * 	(expression)
+ *
+ * expression:
+ * 	term + expression
+ * 	term - expression
+ * 	term
+ *
+ * term:
+ * 	primary / term
+ * 	primary * term
+ * 	primary
+ */
+
 enum Token_type
 {
 	NAME,
