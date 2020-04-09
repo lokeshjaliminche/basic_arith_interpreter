@@ -31,19 +31,13 @@ class Lexer
 
 class Parser
 {
+	public:
 	double prim(bool);
 	double term(bool);
 	double expr(bool);
 
 	map<string, double> table;
 };
-
-int main()
-{
-	string text;
-	cin >> text;
-	cout << "text is : " << text;	
-}
 
 double Parser::expr(bool get)
 {
@@ -121,6 +115,7 @@ double Parser::prim(bool get)
 			return 1;
 	}
 }
+
 Token_type Lexer::get_token()
 {
 	char ch = 0;
@@ -164,3 +159,20 @@ Token_type Lexer::get_token()
 	}
 
 }
+
+int main()
+{
+	Parser parse;
+	Lexer lex;
+	while(cin)
+	{
+		lex.get_token();
+
+		if (currToken == END) break;
+
+		cout << parse.expr(false) << endl;
+
+	}
+}
+
+
