@@ -25,6 +25,7 @@ string stringvalue;
 
 class Lexer 
 {
+	public:
 	Token_type get_token();
 };
 
@@ -44,6 +45,82 @@ int main()
 	cout << "text is : " << text;	
 }
 
+double Parser::expr(bool get)
+{
+	double left = term(get);
+
+	while(1)
+	{
+		switch(currToken)
+		{
+			case PLUS:
+				left += term(true);
+				break;
+			case MINUS:
+				left -= term(true);
+				break;
+			default:
+				return left;
+		}
+	}
+}
+
+double Parser::term(bool get)
+{
+    double left = prim(get);
+
+    while(1)
+    {
+        switch (currToken)
+        {
+        case  MUL:
+            left *= prim(true);
+            break;
+        case DIV:
+            if (double d = prim(true))
+            {
+                left /= d;
+                break;
+            }
+	    cout << "Divide by 0";
+            return 1;
+        default:
+            return left;
+        }
+    }
+
+}
+double Parser::prim(bool get)
+{
+	Lexer l;
+	if(get) l.get_token();
+
+	switch(currToken)
+	{
+		case NUMBER:
+		{
+			double v = numbervalue;
+			l.get_token();
+			return v;	
+		}
+
+		case MINUS:
+		{
+			return -prim(true);
+		}
+
+		case LP:
+		{
+			double e = expr(true);
+			if (currToken != RP)
+				cout << "expected )";
+			l.get_token();
+			return e;
+		}
+		default:
+			return 1;
+	}
+}
 Token_type Lexer::get_token()
 {
 	char ch = 0;
