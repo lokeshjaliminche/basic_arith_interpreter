@@ -3,7 +3,6 @@
 #include <map>
 
 using namespace std;
-
 enum Token_type
 {
 	NAME,
@@ -20,20 +19,13 @@ enum Token_type
 };
 
 
-class Token
-{
-
-	public:
-		Token_type type;
-		Token_type currToken;
-		double numbervalue;
-		string stringvalue;
-};
+Token_type currToken;
+double numbervalue;
+string stringvalue;
 
 class Lexer 
 {
-	public:
-	void get_token();
+	Token_type get_token();
 };
 
 class Parser
@@ -50,21 +42,48 @@ int main()
 	string text;
 	cin >> text;
 	cout << "text is : " << text;	
-
 }
 
-void Lexer::get_token()
+Token_type Lexer::get_token()
 {
 	char ch = 0;
-	Token token;
-	Token_type type;
 	do
 	{
 		if(!cin.get(ch))
 		{
-			token.currToken = END;
-			return;
+			currToken = END;
+			return END;
 		}
 	}while(ch != '\n' && isspace(ch));
+
+        switch(ch)
+	{
+		case '*':
+		case '/':
+		case '+':
+		case '-':
+		case '(':
+		case ')':
+			currToken = Token_type(ch);
+			return currToken;
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+		case '.':
+			cin.putback(ch);
+			cin >> numbervalue;
+			currToken = NUMBER;
+			return currToken;
+		default:
+			currToken = END;
+			return currToken;
+	}
 
 }
