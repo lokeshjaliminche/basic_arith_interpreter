@@ -65,7 +65,7 @@ enum Token_type
 
 
 Token_type currToken;
-double numbervalue;
+int numbervalue;
 string stringvalue;
 
 class Lexer 
@@ -77,16 +77,16 @@ class Lexer
 class Parser
 {
 	public:
-	double prim(bool);
-	double term(bool);
-	double expr(bool);
+	int prim(bool);
+	int term(bool);
+	int expr(bool);
 
-	map<string, double> table;
+	map<string, int> table;
 };
 
-double Parser::expr(bool get)
+int Parser::expr(bool get)
 {
-	double left = term(get);
+	int left = term(get);
 
 	while(1)
 	{
@@ -104,9 +104,9 @@ double Parser::expr(bool get)
 	}
 }
 
-double Parser::term(bool get)
+int Parser::term(bool get)
 {
-    double left = prim(get);
+    int left = prim(get);
 
     while(1)
     {
@@ -116,7 +116,7 @@ double Parser::term(bool get)
             left *= prim(true);
             break;
         case DIV:
-            if (double d = prim(true))
+            if (int d = prim(true))
             {
                 left /= d;
                 break;
@@ -129,7 +129,7 @@ double Parser::term(bool get)
     }
 
 }
-double Parser::prim(bool get)
+int Parser::prim(bool get)
 {
 	Lexer l;
 	if(get) l.get_token();
@@ -138,7 +138,7 @@ double Parser::prim(bool get)
 	{
 		case NUMBER:
 		{
-			double v = numbervalue;
+			int v = numbervalue;
 			l.get_token();
 			return v;	
 		}
@@ -150,7 +150,7 @@ double Parser::prim(bool get)
 
 		case LP:
 		{
-			double e = expr(true);
+			int e = expr(true);
 			if (currToken != RP)
 				cout << "expected )";
 			l.get_token();
@@ -214,8 +214,8 @@ int main()
 		lex.get_token();
 
 		if (currToken == END) break;
-
-		cout << parse.expr(false) << endl;
+		int result = parse.expr(false);
+		cout << result << endl;
 
 	}
 }
