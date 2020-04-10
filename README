@@ -1,0 +1,55 @@
+How to Run:
+==========
+1. unzip HW1_LNJ.zip /*extract the zip file*/
+2. cd HW1_LNJ
+3. make
+4. ./arith
+
+
+
+Instrictions run tests:
+======================
+1. mytest.bat file is present in the "./HW1_LNJ/tests"
+folder. Copy this file in the tests folder of test harness.
+Run following command.
+
+sh test.sh
+
+Program Description :
+====================
+This programs contains Implemention of ARITH in C++
+
+As per the requirement, this program does the following things:
+
+- gets inputs via stdin and output via stdout
+- parses the input into tokens and evaluates the expression 
+- Currently it supports
+	- multiplication, division, addition, subtraction.
+	- unary operators (-(int))
+	- All operations are supported for integers.
+
+Requirements:
+c++ compiler
+
+Grammar
+The grammar in the homework is
+
+<expr> ::== <int>
+           |<expr> + <expr>
+           |<expr> * <expr>
+
+to capture the order of predence, my grammar is
+Grammer:
+=======
+ <Primary> :: = NUMBER | - primary | (expression)
+
+ <expression> :: = term + expression | term - expression | term
+
+ <term> :: = <primary> / <term> | <primary> * <term> | <primary>
+
+
+Reference:
+Grammar, Syntax and Semantics: https://opendsa-server.cs.vt.edu/ODSA/Books/PL/html/index.html
+Python tutorial to understand concepts: https://ruslanspivak.com/lsbasi-part7/
+Implementation: c++ forum (http://www.cplusplus.com/forum/general/1116/2/)
+
